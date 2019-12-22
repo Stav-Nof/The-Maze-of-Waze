@@ -1,31 +1,44 @@
 package dataStructure;
 
 import java.util.Collection;
+import java.util.HashMap;
 
 public class DGraph implements graph{
-
+	HashMap <Integer,node_data> vertices;
+	HashMap <Integer,HashMap<Integer,edge_data>> edges;
+	int v;
+	
 	@Override
 	public node_data getNode(int key) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		if(vertices.containsKey(key)){
+			return vertices.get(key);
+		} else
+			return null;
 	}
 
 	@Override
 	public edge_data getEdge(int src, int dest) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		if (edges.containsKey(src) && edges.get(src).containsKey(dest)) {
+			return edges.get(src).get(dest);
+		}
+		else {
+			return null;
+		}
 	}
 
 	@Override
 	public void addNode(node_data n) {
-		// TODO Auto-generated method stub
-		
+		this.vertices.put( n.getKey(),n);
+		v++;
+
 	}
 
 	@Override
 	public void connect(int src, int dest, double w) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
