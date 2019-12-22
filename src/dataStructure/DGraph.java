@@ -30,7 +30,7 @@ public class DGraph implements graph{
 
 	@Override
 	public void addNode(node_data n) {
-		this.vertices.put( n.getKey(),n);
+		this.vertices.put(n.getKey(),n);
 		v++;
 
 	}
@@ -56,6 +56,9 @@ public class DGraph implements graph{
 	@Override
 	public node_data removeNode(int key) {
 		// TODO Auto-generated method stub
+		if (vertices.containsKey(key)) {
+			
+		}
 		return null;
 	}
 
