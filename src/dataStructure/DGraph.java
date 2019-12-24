@@ -8,10 +8,10 @@ import java.util.HashMap;
 public class DGraph implements graph{
 
 	
-	HashMap <Integer,node_data> vertices;
-	HashMap <Integer,HashMap<Integer,edge_data>> 	edges;
-	int verticeCounter;
-	int edgesCounter;
+	private HashMap <Integer,node_data> vertices;
+	private HashMap <Integer,HashMap<Integer,edge_data>> 	edges;
+	private int verticeCounter;
+	private int edgesCounter;
 
 
 	public DGraph() {
@@ -61,7 +61,7 @@ public class DGraph implements graph{
 		node_data b = getNode(dest);
 		
 		if(a != null && b!=null) {
-			Edge e = new Edge(w);
+			Edge e = new Edge(this.vertices.get(src), this.vertices.get(dest), w);
 			this.edges.get(src).put(dest,e);
 		}
 	}
