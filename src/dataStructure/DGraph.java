@@ -4,9 +4,11 @@ import java.util.Collection;
 import java.util.HashMap;
 
 public class DGraph implements graph{
+	
 	HashMap <Integer,node_data> vertices;
-	HashMap <Integer,HashMap<Integer,edge_data>> edges;
-	int v;
+	HashMap <Integer,HashMap<Integer,edge_data>> 	edges;
+	int verticescounter;
+	int EdgesCounter;
 	
 	@Override
 	public node_data getNode(int key) {
@@ -38,7 +40,15 @@ public class DGraph implements graph{
 	@Override
 	public void connect(int src, int dest, double w) {
 		// TODO Auto-generated method stub
-
+		
+		node_data a = getNode(src);
+		node_data b = getNode(dest);
+		
+		if(a != null && b!=null) {
+			Edge e = new Edge(w);
+			this.edges.get(src).put(dest,e);
+		}
+		
 	}
 
 	@Override
@@ -77,7 +87,7 @@ public class DGraph implements graph{
 	@Override
 	public int edgeSize() {
 		// TODO Auto-generated method stub
-		return 0;
+		return this.EgdesCounter;
 	}
 
 	@Override
