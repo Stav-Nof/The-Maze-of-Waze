@@ -9,7 +9,7 @@ public class DGraph implements graph{
 
 	
 	private HashMap <Integer,node_data> vertices;
-	private HashMap <Integer,HashMap<Integer,edge_data>> 	edges;
+	private HashMap <Integer,HashMap<Integer,edge_data>> edges;
 	private int verticeCounter;
 	private int edgesCounter;
 
@@ -67,14 +67,12 @@ public class DGraph implements graph{
 	}
 
 	
-	@SuppressWarnings("unchecked")
 	@Override
 	public Collection<node_data> getV() {
 		return (Collection<node_data>) this.vertices;
 	}
 
 	
-	@SuppressWarnings("unchecked")
 	@Override
 	public Collection<edge_data> getE(int node_id) {
 		return (Collection<edge_data>) this.edges.get(node_id);
@@ -113,7 +111,6 @@ public class DGraph implements graph{
 
 	@Override
 	public int edgeSize() {
-		// TODO Auto-generated method stub
 		return this.edgesCounter;
 	}
 
@@ -122,5 +119,6 @@ public class DGraph implements graph{
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
+	
+	
 }

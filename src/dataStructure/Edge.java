@@ -8,7 +8,6 @@ public class Edge implements edge_data {
 	private int tag;
 	
 	
-	
 	public Edge() {
 		this.src = null;
 		this.dest = null;
@@ -66,5 +65,6 @@ public class Edge implements edge_data {
 	public void setTag(int t) {
 		this.tag = t;
 	}
+	
 
 }
