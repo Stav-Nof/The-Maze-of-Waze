@@ -1,5 +1,6 @@
 package algorithms;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.io.FileInputStream;
@@ -82,17 +83,16 @@ public class Graph_Algo implements graph_algorithms{
 
 	public boolean isReachable(int src,int dest) {
 		Collection<edge_data> collection = this.g.getE(src);
-		boolean ans = false;
 		for(edge_data i : collection) {
 			int e = i.getDest();
 			if(e == dest) {
-				ans = true ;
+				return true;
 			}
 			else {
 				return isReachable(e,dest);
 			}
 		}
-		return ans;
+		return false;
 	}
 
 
@@ -118,6 +118,29 @@ public class Graph_Algo implements graph_algorithms{
 	}
 
 
+	@Override
+	public double shortestPathDist(int src, int dest) {
+		Collection<edge_data> collection = this.g.getE(src);
+		for(edge_data i : collection) {
+			int e = i.getDest();
+			if(e == dest) {
+				break;
+			}
+			else {
+				this.g.getNode(src).setTag(1);
+				return shortestPathDist(e,dest);
+
+			}
+
+		}
+
+		return temp;
+		if(!(isReachable(src, dest))) {
+			return 0;
+		}
+	}
+	
+
 	public node_data minWeightVal() {
 		Collection<node_data> collection = this.g.getV();
 		node_data ans = null;
@@ -129,6 +152,9 @@ public class Graph_Algo implements graph_algorithms{
 				ans = i;
 			}
 		}
+
+
+
 		return ans;
 	}
 
@@ -156,6 +182,7 @@ public class Graph_Algo implements graph_algorithms{
 	}
 
 
+
 	@Override
 	public List<node_data> shortestPath(int src, int dest) {
 		if (!(isReachable(src, dest))) {
@@ -178,9 +205,9 @@ public class Graph_Algo implements graph_algorithms{
 		}
 		Object[] upsideDown1 =  upsideDown.toArray();
 		LinkedList<node_data> ans = new LinkedList<>();
-			for (int i = upsideDown1.length-1; i >= 0; i--) {
-				ans.add(this.g.getNode((int)upsideDown1[i]));
-			}
+		for (int i = upsideDown1.length-1; i >= 0; i--) {
+			ans.add(this.g.getNode((int)upsideDown1[i]));
+		}
 		return ans;
 	}
 
