@@ -18,9 +18,8 @@ public class test {
 		node_data n3 = new Node(4,3);
 		node_data n4 = new Node(5,1);
 		
-		Edge e = new Edge(n,n1,3);
-		System.out.println(e.getSrc());
-		System.out.println(e.getDest());
+		
+	
 		g.addNode(n);
 		g.addNode(n1);
 		

@@ -53,6 +53,7 @@ public class DGraph implements graph{
 			this.verticeCounter = temp.verticeCounter;
 		}
 		this.vertices.put(n.getKey(),n);
+		this.edges.put(n.getKey(),new HashMap<Integer,edge_data>());
 		verticeCounter++;
 		mc++;
 	}

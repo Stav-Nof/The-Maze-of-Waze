@@ -7,7 +7,7 @@ public class Node implements node_data {
 	private Point3D location;
 	private double weight;
 	private String info;
-	private double tag;
+	private int tag;
 
 
 
@@ -19,7 +19,7 @@ public class Node implements node_data {
 		this.tag=0;
 	}
 	public Node(int id,double weight) {
-		this.id = id;
+		this.key = id;
 		this.weight = weight;
 	}
 	@Override
