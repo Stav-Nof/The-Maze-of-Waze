@@ -3,11 +3,12 @@ package dataStructure;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.LinkedList;
 
 
 public class DGraph implements graph{
 
-	
+
 	private HashMap <Integer,node_data> vertices;
 	private HashMap <Integer,HashMap<Integer,edge_data>> edges;
 	private int verticeCounter;
@@ -22,8 +23,8 @@ public class DGraph implements graph{
 		edgesCounter = 0;
 		mc=0;
 	}
-	
-	
+
+
 	@Override
 	public node_data getNode(int key) {
 		if(vertices.containsKey(key)){
@@ -43,7 +44,7 @@ public class DGraph implements graph{
 		}
 	}
 
-	
+
 	@Override
 	public void addNode(node_data n) {
 		if (this.vertices == null) {
@@ -58,7 +59,7 @@ public class DGraph implements graph{
 		mc++;
 	}
 
-	
+
 	@Override
 	public void connect(int src, int dest, double w) {
 		node_data a = getNode(src);
@@ -66,38 +67,54 @@ public class DGraph implements graph{
 		if(a != null && b!=null) {
 			Edge e = new Edge(this.vertices.get(src), this.vertices.get(dest), w);
 			this.edges.get(src).put(dest,e);
-			mc++;
+			this.edgesCounter++;
+			this.mc++;
 		}
-		
-		
+
+
 	}
 
-	
+
 	@Override
 	public Collection<node_data> getV() {
-		return (Collection<node_data>) this.vertices;
+		Collection<node_data> ans =  new LinkedList<node_data>();
+		int counter = this.verticeCounter;
+		for (int i = 0; i <= counter; i++) {
+			if (this.vertices.get(i) != null) {
+				ans.add(this.vertices.get(i));
+			}
+		}
+		return ans;
 	}
 
-	
+
 	@Override
 	public Collection<edge_data> getE(int node_id) {
-		return (Collection<edge_data>) this.edges.get(node_id);
+		Collection<edge_data> ans =  new LinkedList<edge_data>();
+		int counter = this.verticeCounter;
+		for (int i = 0; i <= counter; i++) {
+			if (this.edges.get(node_id).get(i) != null) {
+				ans.add(this.edges.get(node_id).get(i));
+			}
+		}
+		return ans;
 	}
 
-	
+
 	@Override
 	public node_data removeNode(int key) {
 		if (this.vertices.containsKey(key)) {
 			node_data toReturn = this.vertices.remove(key);
+			int num = this.edges.get(key).size();
 			this.edges.remove(key);
-			this.verticeCounter--;
+			this.verticeCounter = this.verticeCounter - num;
 			mc++;
 			return toReturn;
 		}
 		return null;
 	}
 
-	
+
 	@Override
 	public edge_data removeEdge(int src, int dest) {
 		if (this.edges.containsKey(src)) {
@@ -111,7 +128,7 @@ public class DGraph implements graph{
 		return null;
 	}
 
-	
+
 	@Override
 	public int nodeSize() {
 		return this.verticeCounter;
@@ -126,6 +143,6 @@ public class DGraph implements graph{
 	public int getMC() {
 		return mc;
 	}
-	
-	
+
+
 }

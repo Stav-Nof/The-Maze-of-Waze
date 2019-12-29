@@ -1,9 +1,6 @@
-import java.util.Collection;
-
+import algorithms.Graph_Algo;
 import dataStructure.DGraph;
-import dataStructure.Edge;
 import dataStructure.Node;
-import dataStructure.edge_data;
 import dataStructure.node_data;
 
 public class test {
@@ -24,8 +21,11 @@ public class test {
 		g.addNode(n1);
 		
 		g.connect(n.getKey(), n1.getKey(), 3);
+		g.connect(n1.getKey(), n.getKey(), 3);
+		Graph_Algo t = new Graph_Algo();
+		t.init(g);
+		System.out.println(t.isConnected());
 		
-
 	}
 	
 
