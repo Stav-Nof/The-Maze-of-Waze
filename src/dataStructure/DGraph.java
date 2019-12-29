@@ -12,6 +12,7 @@ public class DGraph implements graph{
 	private HashMap <Integer,HashMap<Integer,edge_data>> edges;
 	private int verticeCounter;
 	private int edgesCounter;
+	int mc;
 
 
 	public DGraph() {
@@ -19,6 +20,7 @@ public class DGraph implements graph{
 		edges = new HashMap <Integer,HashMap<Integer,edge_data>>();
 		verticeCounter = 0;
 		edgesCounter = 0;
+		mc=0;
 	}
 	
 	
@@ -52,6 +54,7 @@ public class DGraph implements graph{
 		}
 		this.vertices.put(n.getKey(),n);
 		verticeCounter++;
+		mc++;
 	}
 
 	
@@ -63,6 +66,7 @@ public class DGraph implements graph{
 		if(a != null && b!=null) {
 			Edge e = new Edge(this.vertices.get(src), this.vertices.get(dest), w);
 			this.edges.get(src).put(dest,e);
+			mc++;
 		}
 	}
 
@@ -85,6 +89,7 @@ public class DGraph implements graph{
 			node_data toReturn = this.vertices.remove(key);
 			this.edges.remove(key);
 			this.verticeCounter--;
+			mc++;
 			return toReturn;
 		}
 		return null;
@@ -97,6 +102,7 @@ public class DGraph implements graph{
 			edge_data toReturn = this.edges.get(src).remove(dest);
 			if (toReturn != null) {
 				this.edgesCounter--;
+				mc++;
 			}
 			return toReturn;
 		}
@@ -116,8 +122,7 @@ public class DGraph implements graph{
 
 	@Override
 	public int getMC() {
-		// TODO Auto-generated method stub
-		return 0;
+		return mc;
 	}
 	
 	
