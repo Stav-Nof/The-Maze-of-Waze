@@ -63,7 +63,6 @@ public class Graph_Algo implements graph_algorithms{
 		}
 	}
 
-
 	@Override
 	public boolean isConnected() {
 		Collection<node_data> collection = this.g.getV();
