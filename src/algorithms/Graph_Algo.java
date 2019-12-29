@@ -98,28 +98,6 @@ public class Graph_Algo implements graph_algorithms{
 
 	@Override
 	public double shortestPathDist(int src, int dest) {
-		return 0;
-	}
-
-
-	public void setAllWeight() {
-		Collection<node_data> collection = this.g.getV();
-		for (node_data i : collection) {
-			i.setWeight(Double.POSITIVE_INFINITY);
-		}
-	}
-
-
-	public void resetNodeTags() {
-		Collection<node_data> collection = this.g.getV();
-		for (node_data i : collection) {
-			i.setTag(0);
-		}
-	}
-
-
-	@Override
-	public double shortestPathDist(int src, int dest) {
 		Collection<edge_data> collection = this.g.getE(src);
 		for(edge_data i : collection) {
 			int e = i.getDest();
@@ -139,7 +117,23 @@ public class Graph_Algo implements graph_algorithms{
 			return 0;
 		}
 	}
-	
+
+
+	public void setAllWeight() {
+		Collection<node_data> collection = this.g.getV();
+		for (node_data i : collection) {
+			i.setWeight(Double.POSITIVE_INFINITY);
+		}
+	}
+
+
+	public void resetNodeTags() {
+		Collection<node_data> collection = this.g.getV();
+		for (node_data i : collection) {
+			i.setTag(0);
+		}
+	}
+
 
 	public node_data minWeightVal() {
 		Collection<node_data> collection = this.g.getV();
@@ -152,9 +146,6 @@ public class Graph_Algo implements graph_algorithms{
 				ans = i;
 			}
 		}
-
-
-
 		return ans;
 	}
 
@@ -180,7 +171,6 @@ public class Graph_Algo implements graph_algorithms{
 			shortestPathExtend(temp.getKey());
 		}
 	}
-
 
 
 	@Override
