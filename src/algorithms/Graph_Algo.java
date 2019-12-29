@@ -14,6 +14,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.List;
 import org.w3c.dom.Node;
+
+import dataStructure.DGraph;
 import dataStructure.edge_data;
 import dataStructure.graph;
 import dataStructure.node_data;
@@ -155,8 +157,14 @@ public class Graph_Algo implements graph_algorithms{
 
 	@Override
 	public graph copy() {
-		// TODO Auto-generated method stub
-		return null;
+		//graph copy= new DGraph();
+	//	for (Iterator<Node>verticeCounter : iterable) {	
+		//}
+		this.save("copiedGraph");
+		Graph_Algo copiedGraph= new Graph_Algo ();
+		copiedGraph.init("copiedGraph");
+	
+		return copiedGraph.g;
 	}
 
 
