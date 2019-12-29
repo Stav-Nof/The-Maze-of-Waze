@@ -7,7 +7,8 @@ public class Node implements node_data {
 	private Point3D location;
 	private double weight;
 	private String info;
-	private int tag;
+	private double tag;
+
 
 	public Node() {
 		this.id=0;
@@ -16,7 +17,10 @@ public class Node implements node_data {
 		this.info="";
 		this.tag=0;
 	}
-
+	public Node(int id,double weight) {
+		this.id = id;
+		this.weight = weight;
+	}
 	@Override
 	public int getKey() {
 		return this.id;

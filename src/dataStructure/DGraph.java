@@ -61,9 +61,12 @@ public class DGraph implements graph{
 		node_data b = getNode(dest);
 		
 		if(a != null && b!=null) {
-			Edge e = new Edge(w);
+			Edge e = new Edge(a,b,w);
 			this.edges.get(src).put(dest,e);
+			
 		}
+		
+		
 	}
 
 	

@@ -18,7 +18,7 @@ public class Edge implements edge_data {
 	}
 	
 	
-	public Edge(node_data src, node_data dest, double weight) {
+	public Edge(node_data src, node_data dest,double weight) {
 		this.src= src;
 		this.dest = dest;
 		this.weight = weight;
