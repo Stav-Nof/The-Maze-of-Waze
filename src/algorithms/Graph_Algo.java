@@ -1,5 +1,6 @@
 package algorithms;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -82,17 +83,16 @@ public class Graph_Algo implements graph_algorithms{
 
 	public boolean isReachable(int src,int dest) {
 		Collection<edge_data> collection = this.g.getE(src);
-		boolean ans = false;
 		for(edge_data i : collection) {
 			int e = i.getDest();
 			if(e == dest) {
-				ans = true ;
+				return true;
 			}
 			else {
 				return isReachable(e,dest);
 			}
 		}
-		return ans;
+		return false;
 	}
 
 
@@ -107,12 +107,29 @@ public class Graph_Algo implements graph_algorithms{
 	@Override
 	public double shortestPathDist(int src, int dest) {
 		// TODO Auto-generated method stub
-
-		if (isReachable(src,dest) == false) {
+		
+		if(!(isReachable(src, dest))) {
 			return 0;
 		}
-
+		
+		
+		Collection<edge_data> collection = this.g.getE(src);
+		for(edge_data i : collection) {
+			int e = i.getDest();
+			if(e == dest) {
+				break;
+			}
+			else {
+			this.g.getNode(src).setTag(1);
+				return shortestPathDist(e,dest);
+				
+			}
+		
+		}
+		
+		return temp;
 	}
+	
 
 
 	@Override
