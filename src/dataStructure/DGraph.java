@@ -67,7 +67,8 @@ public class DGraph implements graph{
 		if(a != null && b!=null) {
 			Edge e = new Edge(this.vertices.get(src), this.vertices.get(dest), w);
 			this.edges.get(src).put(dest,e);
-			mc++;
+			this.edgesCounter++;
+			this.mc++;
 		}
 
 
@@ -78,7 +79,7 @@ public class DGraph implements graph{
 	public Collection<node_data> getV() {
 		Collection<node_data> ans =  new LinkedList<node_data>();
 		int counter = this.verticeCounter;
-		for (int i = 0; i < counter; i++) {
+		for (int i = 0; i <= counter; i++) {
 			if (this.vertices.get(i) != null) {
 				ans.add(this.vertices.get(i));
 			}
@@ -90,8 +91,8 @@ public class DGraph implements graph{
 	@Override
 	public Collection<edge_data> getE(int node_id) {
 		Collection<edge_data> ans =  new LinkedList<edge_data>();
-		int counter = this.edges.get(node_id).size();
-		for (int i = 0; i < counter; i++) {
+		int counter = this.verticeCounter;
+		for (int i = 0; i <= counter; i++) {
 			if (this.edges.get(node_id).get(i) != null) {
 				ans.add(this.edges.get(node_id).get(i));
 			}

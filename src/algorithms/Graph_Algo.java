@@ -19,7 +19,7 @@ import dataStructure.node_data;
 public class Graph_Algo implements graph_algorithms{
 	public graph g;
 
-	
+
 
 	@Override
 	public void init(graph g) {
@@ -64,24 +64,38 @@ public class Graph_Algo implements graph_algorithms{
 
 	@Override
 	public boolean isConnected() {
-		
-		return true;
-	}
-
-
-	public void tag(int key) {
-		Collection<edge_data> collection = this.g.getE(key);
-		for (edge_data i : collection) {
-			if(i != null) {
-				if (g.getNode(i.getDest()).getTag() == 0) {
-					g.getNode(i.getDest()).setTag(1);
-					tag(i.getDest());
+		Collection<node_data> collection = this.g.getV();
+		boolean ans = true;
+		for (node_data i : collection) {
+			for (node_data j : collection) {
+				if (i.getKey() != j.getKey()) {
+					if(!(isReachable(i.getKey(), j.getKey()))) {
+						return false;
+					}
 				}
 			}
+
 		}
+		return ans;
 	}
-	
-	
+
+
+	public boolean isReachable(int src,int dest) {
+		Collection<edge_data> collection = this.g.getE(src);
+		boolean ans = false;
+		for(edge_data i : collection) {
+			int e = i.getDest();
+			if(e == dest) {
+				ans = true ;
+			}
+			else {
+				return isReachable(e,dest);
+			}
+		}
+		return ans;
+	}
+
+
 	public void resetNodeTags() {
 		Collection<node_data> collection = this.g.getV();
 		for (node_data i : collection) {
@@ -89,33 +103,17 @@ public class Graph_Algo implements graph_algorithms{
 		}
 	}
 
-	
+
 	@Override
 	public double shortestPathDist(int src, int dest) {
 		// TODO Auto-generated method stub
-		
+
 		if (isReachable(src,dest) == false) {
 			return 0;
 		}
-		
+
 	}
-	
-	public boolean isReachable(int src,int dest) {
-		Collection<edge_data> collection = (Collection<edge_data>) this.g.getE(src);
-		boolean bool = false;
-		for(edge_data i : collection) {
-			int e = i.getDest();
-			int b = this.g.getNode(dest).getKey();
-			if(e == b) {
-				bool = true ;
-			}
-			else {
-				return isReachable(e,b);
-			}
-		}
-		return bool;
-	}
-	
+
 
 	@Override
 	public List<node_data> shortestPath(int src, int dest) {
