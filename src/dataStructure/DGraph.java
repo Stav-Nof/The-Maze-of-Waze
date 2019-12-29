@@ -8,10 +8,11 @@ import java.util.HashMap;
 public class DGraph implements graph{
 
 	
-	HashMap <Integer,node_data> vertices;
-	HashMap <Integer,HashMap<Integer,edge_data>> 	edges;
-	int verticeCounter;
-	int edgesCounter;
+	private HashMap <Integer,node_data> vertices;
+	private HashMap <Integer,HashMap<Integer,edge_data>> edges;
+	private int verticeCounter;
+	private int edgesCounter;
+	int mc;
 
 
 	public DGraph() {
@@ -19,6 +20,7 @@ public class DGraph implements graph{
 		edges = new HashMap <Integer,HashMap<Integer,edge_data>>();
 		verticeCounter = 0;
 		edgesCounter = 0;
+		mc=0;
 	}
 	
 	
@@ -52,6 +54,7 @@ public class DGraph implements graph{
 		}
 		this.vertices.put(n.getKey(),n);
 		verticeCounter++;
+		mc++;
 	}
 
 	
@@ -59,25 +62,22 @@ public class DGraph implements graph{
 	public void connect(int src, int dest, double w) {
 		node_data a = getNode(src);
 		node_data b = getNode(dest);
-		
 		if(a != null && b!=null) {
-			Edge e = new Edge(a,b,w);
+			Edge e = new Edge(this.vertices.get(src), this.vertices.get(dest), w);
 			this.edges.get(src).put(dest,e);
-			
+			mc++;
 		}
 		
 		
 	}
 
 	
-	@SuppressWarnings("unchecked")
 	@Override
 	public Collection<node_data> getV() {
 		return (Collection<node_data>) this.vertices;
 	}
 
 	
-	@SuppressWarnings("unchecked")
 	@Override
 	public Collection<edge_data> getE(int node_id) {
 		return (Collection<edge_data>) this.edges.get(node_id);
@@ -90,6 +90,7 @@ public class DGraph implements graph{
 			node_data toReturn = this.vertices.remove(key);
 			this.edges.remove(key);
 			this.verticeCounter--;
+			mc++;
 			return toReturn;
 		}
 		return null;
@@ -102,6 +103,7 @@ public class DGraph implements graph{
 			edge_data toReturn = this.edges.get(src).remove(dest);
 			if (toReturn != null) {
 				this.edgesCounter--;
+				mc++;
 			}
 			return toReturn;
 		}
@@ -116,14 +118,13 @@ public class DGraph implements graph{
 
 	@Override
 	public int edgeSize() {
-		// TODO Auto-generated method stub
 		return this.edgesCounter;
 	}
 
 	@Override
 	public int getMC() {
-		// TODO Auto-generated method stub
-		return 0;
+		return mc;
 	}
-
+	
+	
 }
