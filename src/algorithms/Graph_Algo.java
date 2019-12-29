@@ -1,19 +1,12 @@
 package algorithms;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.util.Collection;
-import java.util.Iterator;
-import java.util.LinkedList;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.List;
-import org.w3c.dom.Node;
 import dataStructure.edge_data;
 import dataStructure.graph;
 import dataStructure.node_data;
@@ -27,6 +20,7 @@ public class Graph_Algo implements graph_algorithms{
 	public graph g;
 
 	
+
 	@Override
 	public void init(graph g) {
 		this.g = g;
@@ -70,19 +64,7 @@ public class Graph_Algo implements graph_algorithms{
 
 	@Override
 	public boolean isConnected() {
-		this.resetNodeTags();
-		Collection<node_data> collection = this.g.getV();
-		for (node_data temp : collection) {
-			if (temp != null) {
-				tag(temp.getKey());
-				break;
-			}
-		}
-		for (node_data i : collection) {
-			if (i.getTag() == 0) {
-				return false;
-			}
-		}
+		
 		return true;
 	}
 
@@ -119,14 +101,11 @@ public class Graph_Algo implements graph_algorithms{
 	}
 	
 	public boolean isReachable(int src,int dest) {
-		
 		Collection<edge_data> collection = (Collection<edge_data>) this.g.getE(src);
 		boolean bool = false;
 		for(edge_data i : collection) {
-			
 			int e = i.getDest();
 			int b = this.g.getNode(dest).getKey();
-			
 			if(e == b) {
 				bool = true ;
 			}
@@ -134,12 +113,9 @@ public class Graph_Algo implements graph_algorithms{
 				return isReachable(e,b);
 			}
 		}
-		
 		return bool;
-	
-		
-		
 	}
+	
 
 	@Override
 	public List<node_data> shortestPath(int src, int dest) {
