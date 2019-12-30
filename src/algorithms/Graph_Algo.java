@@ -83,6 +83,9 @@ public class Graph_Algo implements graph_algorithms{
 
 	public boolean isReachable(int src,int dest) {
 		Collection<edge_data> collection = this.g.getE(src);
+		if(collection.isEmpty()) {
+			return false;
+		}
 		for(edge_data i : collection) {
 			int e = i.getDest();
 			if(e == dest) {
@@ -95,27 +98,29 @@ public class Graph_Algo implements graph_algorithms{
 		return false;
 	}
 
-
-	@Override
-	public double shortestPathDist(int src, int dest) {
+	public void shortestPathDistExtend(int src) {
+		if (this.g.getNode(src).getTag() == 1)return;
 		Collection<edge_data> collection = this.g.getE(src);
 		for(edge_data i : collection) {
-			int e = i.getDest();
-			if(e == dest) {
-				break;
+			if(this.g.getNode(src).getWeight()+1 < this.g.getNode(i.getDest()).getWeight()) {
+				g.getNode(i.getDest()).setWeight(this.g.getNode(src).getWeight()+1);
+				
 			}
-			else {
-				this.g.getNode(src).setTag(1);
-				return shortestPathDist(e,dest);
-
-			}
-
+			this.g.getNode(src).setTag(1);
+			shortestPathDistExtend(minWeightVal().getKey());
 		}
 
-		return temp;
+	}
+	@Override
+	public double shortestPathDist(int src, int dest) {
 		if(!(isReachable(src, dest))) {
 			return 0;
 		}
+		setAllWeight();
+		resetNodeTags();
+		this.g.getNode(src).setWeight(0);
+		shortestPathDistExtend(src);
+		return this.g.getNode(dest).getWeight();
 	}
 
 

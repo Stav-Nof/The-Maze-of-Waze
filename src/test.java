@@ -29,11 +29,11 @@ public class test {
 		g.addNode(n3);
 		g.addNode(n4);
 		
-		g.connect(n.getKey(), n1.getKey(), 3);
-		g.connect(n1.getKey(), n4.getKey(), 3);
-		g.connect(n.getKey(), n2.getKey(), 3);
-		g.connect(n2.getKey(), n4.getKey(), 3);
-		g.connect(n2.getKey(), n1.getKey(), 3);
+		g.connect(n.getKey(), n1.getKey(), 10);
+		g.connect(n1.getKey(), n4.getKey(), 20);
+		g.connect(n.getKey(), n2.getKey(), 4);
+		g.connect(n2.getKey(), n4.getKey(), 5);
+		g.connect(n2.getKey(), n1.getKey(), 6);
 		
 		
 		
