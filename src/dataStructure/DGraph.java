@@ -9,7 +9,7 @@ import java.util.LinkedList;
 public class DGraph implements graph{
 
 
-	private HashMap <Integer,node_data> vertices;
+	public HashMap <Integer,node_data> vertices;
 	private HashMap <Integer,HashMap<Integer,edge_data>> edges;
 	private int verticeCounter;
 	private int edgesCounter;
