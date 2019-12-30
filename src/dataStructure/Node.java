@@ -18,10 +18,17 @@ public class Node implements node_data {
 		this.info="";
 		this.tag=0;
 	}
-	public Node(int id,double weight) {
-		this.key = id;
-		this.weight = weight;
+	public Node(int key,double x, double y) {
+		this.key = key;
+		this.location = new Point3D (x,y);
 	}
+	
+	public Node(int key,Point3D location) {
+		this.key = key;
+		this.location = location;
+	}
+	
+	
 	@Override
 	public int getKey() {
 		return this.key;

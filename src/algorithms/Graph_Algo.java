@@ -2,6 +2,7 @@ package algorithms;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -9,9 +10,12 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.List;
+import dataStructure.DGraph;
 import dataStructure.edge_data;
+import dataStructure.Node;
 import dataStructure.graph;
 import dataStructure.node_data;
+import utils.Point3D;
 
 
 /**
@@ -22,6 +26,7 @@ import dataStructure.node_data;
  */
 public class Graph_Algo implements graph_algorithms{
 	public graph g;
+
 
 
 	@Override
@@ -208,20 +213,45 @@ public class Graph_Algo implements graph_algorithms{
 
 	@Override
 	public List<node_data> TSP(List<Integer> targets) {
-		// TODO Auto-generated method stub
-		return null;
+		if (targets.isEmpty())return new LinkedList<node_data>();
+		if(!isConnected())return null;
+		List<node_data> shortes = null;
+		int firstNode = 0;
+		double weight = Double.POSITIVE_INFINITY;
+		for (Integer i : targets) {
+			for (Integer j : targets) {
+				if (i == j)continue;
+				List<node_data> temp = shortestPath(i, j);
+				if (weight > this.g.getNode(j).getWeight()) {
+					weight = this.g.getNode(j).getWeight();
+					shortes = temp;
+					firstNode = i;
+				}
+			}
+		}
+		targets.remove(firstNode);
+		List<node_data> ans = new LinkedList<node_data>();
+		ans.addAll(shortes);
+		ans.addAll(TSP(targets));
+		return ans;
 	}
+
 
 	@Override
 	public graph copy() {
-		//graph copy= new DGraph();
-		//	for (Iterator<Node>verticeCounter : iterable) {	
-		//}
-		this.save("copiedGraph");
-		Graph_Algo copiedGraph= new Graph_Algo ();
-		copiedGraph.init("copiedGraph");
-
-		return copiedGraph.g;
+		DGraph copy = new DGraph();
+		Collection<node_data> collection = this.g.getV();
+		for (node_data i : collection) {
+			Node temp = new Node(i.getKey(),new Point3D(i.getLocation()));
+			copy.addNode(temp);
+		}
+		for (node_data i : collection) {
+			Collection<edge_data> edges = this.g.getE(i.getKey());
+			for (edge_data j : edges) {
+				copy.connect(i.getKey(), j.getDest(), j.getWeight());
+			}
+		}
+		return copy;
 	}
 
 
