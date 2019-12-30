@@ -1,6 +1,8 @@
 package GUI;
 
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.Menu;
 import java.awt.MenuBar;
@@ -11,8 +13,14 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.Collection;
 import java.util.LinkedList;
+
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import algorithms.Graph_Algo;
+import dataStructure.Node;
 import dataStructure.node_data;
 import utils.Point3D;
 
@@ -23,13 +31,13 @@ public class Window extends JFrame implements ActionListener {
 		this.ga = new Graph_Algo();
 		firstWindow();
 	}
-	
-	
+
+
 	public Window(Graph_Algo g) {
 		this.ga = g;
 		firstWindow();
 	}
-	
+
 
 	private void firstWindow() {
 		this.setSize(500, 500);
@@ -50,7 +58,6 @@ public class Window extends JFrame implements ActionListener {
 
 		graph.add(addVertices);
 		graph.add(item2);
-		repaint();
 	}
 
 	public void paint(Graphics g) {
@@ -61,28 +68,7 @@ public class Window extends JFrame implements ActionListener {
 			Point3D Location = i.getLocation();
 			g.fillOval(Location.ix(), Location.iy(), 10, 10);
 		}
-		
-		
 
-//		Point3D prev = null;
-//
-//		for (Point3D p : points) 
-//		{
-//			g.setColor(Color.BLUE);
-//			g.fillOval((int)p.x(), (int)p.y(), 10, 10);
-//
-//			if(prev != null)
-//			{
-//				g.setColor(Color.RED);
-//				g.drawLine((int)p.x(), (int)p.y(), 
-//						(int)prev.x(), (int)prev.y());
-//
-//				g.drawString("5", (int)((p.x()+prev.x())/2),(int)((p.y()+prev.y())/2));
-//			}
-//
-//			prev = p;
-//		}
-		
 	}
 
 
@@ -92,10 +78,20 @@ public class Window extends JFrame implements ActionListener {
 		String action = e.getActionCommand();
 
 		if(action.equals("add vertices")){
-			System.out.println("add vertices");
+			final JFrame toAdd = new JFrame();
+			String sX = JOptionPane.showInputDialog(toAdd,"enter an x valu", null);
+			String sY = JOptionPane.showInputDialog(toAdd,"enter an y valu", null);
+			String sKey = JOptionPane.showInputDialog(toAdd,"enter an key", null);
+			Node temp = null;
+			try {
+				temp = new Node(Integer.parseInt(sKey), Double.parseDouble(sX), Double.parseDouble(sY));
+			}
+			catch (NumberFormatException er) {
+				JOptionPane.showMessageDialog(null, "you entered a char instead of a number!\nthe vertices did not added");
+			}
+			ga.g.addNode(temp);
 			repaint();
 		}
 
 	}
-
 }
