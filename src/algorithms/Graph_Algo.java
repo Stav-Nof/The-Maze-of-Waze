@@ -203,10 +203,30 @@ public class Graph_Algo implements graph_algorithms{
 
 	@Override
 	public List<node_data> TSP(List<Integer> targets) {
-		// TODO Auto-generated method stub
-		return null;
+		if (targets.isEmpty())return new LinkedList<node_data>();
+		if(!isConnected())return null;
+		List<node_data> shortes = null;
+		int firstNode = 0;
+		double weight = Double.POSITIVE_INFINITY;
+		for (Integer i : targets) {
+			for (Integer j : targets) {
+				if (i == j)continue;
+				List<node_data> temp = shortestPath(i, j);
+				if (weight > this.g.getNode(j).getWeight()) {
+					weight = this.g.getNode(j).getWeight();
+					shortes = temp;
+					firstNode = i;
+				}
+			}
+		}
+		targets.remove(firstNode);
+		List<node_data> ans = new LinkedList<node_data>();
+		ans.addAll(shortes);
+		ans.addAll(TSP(targets));
+		return ans;
 	}
 
+	
 	@Override
 	public graph copy() {
 		//graph copy= new DGraph();
