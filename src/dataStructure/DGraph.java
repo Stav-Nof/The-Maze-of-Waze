@@ -53,9 +53,6 @@ public class DGraph implements graph{
 			this.vertices = temp.vertices;
 			this.verticeCounter = temp.verticeCounter;
 		}
-		if (this.getNode(n.getKey()) != null) {
-			throw new RuntimeException("the key you tryed to add already exists");
-		}
 		this.vertices.put(n.getKey(),n);
 		this.edges.put(n.getKey(),new HashMap<Integer,edge_data>());
 		verticeCounter++;
