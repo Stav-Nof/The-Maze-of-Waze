@@ -117,6 +117,7 @@ public class Graph_Algo implements graph_algorithms, Serializable{
 		if (!(isReachable(src, dest))) {
 			return 0;
 		}
+		shortestPathcalc(src, dest);
 		return this.g.getNode(dest).getWeight();
 	}
 
