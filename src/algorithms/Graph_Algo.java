@@ -205,6 +205,13 @@ public class Graph_Algo implements graph_algorithms, Serializable{
 
 	@Override
 	public List<node_data> TSP(List<Integer> targets) {
+		if (targets.size() <= 1) {
+			List<node_data> ans = new LinkedList<node_data>();
+			for (Integer i : targets) {
+				ans.add(this.g.getNode(i));
+				return ans;
+			}
+		}
 		if(!isConnected())return null;
 		List<node_data> shortes = null;
 		int firstNode = 0;
@@ -212,16 +219,18 @@ public class Graph_Algo implements graph_algorithms, Serializable{
 		for (Integer i : targets) {
 			for (Integer j : targets) {
 				if (i == j)continue;
-				List<node_data> temp = shortestPath(i, j);
-				if (weight > this.g.getNode(j).getWeight()) {
-					weight = this.g.getNode(j).getWeight();
-					shortes = temp;
+				double temp = shortestPathDist(i, j);
+				if (weight > temp) {
+					weight = temp;
+					shortes = shortestPath(i, j);
 					firstNode = i;
 				}
 			}
 		}
-		if (targets.size() == 1)return new LinkedList<node_data>();
-		targets.remove(targets.indexOf(firstNode));
+		for (node_data i : shortes) {
+			targets.remove(targets.indexOf(i.getKey()));
+		}
+		
 		List<node_data> ans = new LinkedList<node_data>();
 		ans.addAll(shortes);
 		ans.addAll(TSP(targets));
