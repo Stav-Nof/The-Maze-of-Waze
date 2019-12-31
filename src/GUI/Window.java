@@ -14,6 +14,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.swing.ButtonGroup;
@@ -78,9 +79,12 @@ public class Window extends JFrame implements ActionListener {
 		shortestPathDist.addActionListener(this);
 		MenuItem shortestPath = new MenuItem("shortest Path");
 		shortestPath.addActionListener(this);
+		MenuItem TSP = new MenuItem("TSP");
+		TSP.addActionListener(this);
 		algorithms.add(isConnected);
 		algorithms.add(shortestPathDist);
 		algorithms.add(shortestPath);
+		algorithms.add(TSP);
 		//graph menu
 		MenuItem loadGraph = new MenuItem("load graph");
 		loadGraph.addActionListener(this);
@@ -94,6 +98,8 @@ public class Window extends JFrame implements ActionListener {
 		graph.add(saveGraph);
 		graph.add(addVertices);
 		graph.add(connect);
+		this.setVisible(true);
+
 	}
 
 	public void paint(Graphics g) {
@@ -114,8 +120,8 @@ public class Window extends JFrame implements ActionListener {
 		for (node_data i : collection) {
 			Point3D Location = i.getLocation();
 			g.setColor(Color.BLUE);
-			g.fillOval(Location.ix()-5, Location.iy()-5, 10, 10);
-			g.drawString("" + i.getKey(), Location.ix()-5, Location.iy()-5);
+			g.fillOval(Location.ix()+10, Location.iy()+50, 10, 10);
+			g.drawString("" + i.getKey(), Location.ix()+5, Location.iy()+50);
 		}
 		Graphics2D g2 = (Graphics2D) g;
 		for (node_data i : collection) {
@@ -125,12 +131,12 @@ public class Window extends JFrame implements ActionListener {
 				g.setColor(Color.RED);
 				Point3D from = i.getLocation();
 				Point3D to = this.ga.g.getNode(j.getDest()).getLocation();
-				g2.drawLine(from.ix(), from.iy(), to.ix(), to.iy());
-				g.drawString("" + j.getWeight(), (from.ix() + to.ix())/2,  (from.iy() + to.iy())/2);
+				g2.drawLine(from.ix()+15, from.iy()+55, to.ix()+15, to.iy()+55);
+				g.drawString("" + j.getWeight(), ((from.ix() + to.ix())/2)+15,  ((from.iy() + to.iy())/2)+55);
 				g.setColor(Color.YELLOW);
 				int xGoBack = (from.ix() - to.ix())/10;
 				int yGoBack = (from.iy() - to.iy())/10;
-				g.fillOval(to.ix() + xGoBack -5, to.iy() + yGoBack -5, 10, 10);
+				g.fillOval(to.ix() + xGoBack +10, to.iy() + yGoBack +50, 10, 10);
 			}
 		}
 	}
@@ -141,6 +147,38 @@ public class Window extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String action = e.getActionCommand();
+		if (action.equals("TSP")) {
+			if (!this.ga.isConnected()) {
+				JOptionPane.showMessageDialog(null, "the graph not conected.\nyou cent use this option");
+				return;
+
+			}
+			final JFrame TSP = new JFrame();
+			Collection<node_data> temp = this.ga.g.getV();
+			JCheckBox choices [] = new JCheckBox[temp.size()];
+			int i = 0;
+			for(node_data j: temp) {
+				choices[i] = new JCheckBox("" + j.getKey());
+				i++;
+			}
+			Object[] lines = {"chooses nodes", choices};
+			if(JOptionPane.showConfirmDialog(TSP, lines, "TSP", JOptionPane.DEFAULT_OPTION) == -1)return;
+			List<Integer> nodesSelected = new LinkedList<Integer>();
+			for (i = 0; i < choices.length; i++) {
+				if(choices[i].isSelected()) {
+					nodesSelected.add(Integer.parseInt(choices[i].getText()));
+				}
+			}
+			List<node_data> ans = this.ga.TSP(nodesSelected);
+			String sAns = "";
+			for (node_data j : ans) {
+				sAns = sAns + "," + j.getKey();
+			}
+			sAns = (String) sAns.subSequence(1,sAns.length());
+			JOptionPane.showMessageDialog(null, "the TSP is:\n" + sAns);
+			return;
+		}
+
 		if (action.equals("shortest Path")) {
 			final JFrame shortestPathDist = new JFrame();
 			if (!this.ga.isConnected()) {
