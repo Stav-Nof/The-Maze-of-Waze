@@ -4,11 +4,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.List;
 import dataStructure.DGraph;
 import dataStructure.edge_data;
@@ -24,7 +26,7 @@ import utils.Point3D;
  * @author 
  *
  */
-public class Graph_Algo implements graph_algorithms{
+public class Graph_Algo implements graph_algorithms, Serializable{
 	public graph g;
 
 
@@ -58,14 +60,14 @@ public class Graph_Algo implements graph_algorithms{
 	@Override
 	public void save(String file_name) {
 		try{    
-			FileOutputStream file = new FileOutputStream(file_name); 
+			FileOutputStream file = new FileOutputStream(new File(file_name)); 
 			ObjectOutputStream ous = new ObjectOutputStream(file); 
 			ous.writeObject(this); 
 			ous.close(); 
 			file.close(); 
 		}
 		catch(IOException ex) {
-			System.out.println("IOException is caught"); 
+			ex.printStackTrace();
 		}
 	}
 

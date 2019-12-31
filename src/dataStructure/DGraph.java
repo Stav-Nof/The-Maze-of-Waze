@@ -1,12 +1,13 @@
 package dataStructure;
 
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
 
 
-public class DGraph implements graph{
+public class DGraph implements graph, Serializable{
 
 
 	public HashMap <Integer,node_data> vertices;
