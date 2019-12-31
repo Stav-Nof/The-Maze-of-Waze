@@ -1,8 +1,6 @@
 package algorithms;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.io.File;
 import java.io.FileInputStream;
@@ -12,6 +10,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.List;
+import java.util.StringTokenizer;
 import dataStructure.DGraph;
 import dataStructure.edge_data;
 import dataStructure.Node;
@@ -28,12 +27,13 @@ import utils.Point3D;
  */
 public class Graph_Algo implements graph_algorithms, Serializable{
 	public graph g;
-
+	public int mc;
 
 
 	@Override
 	public void init(graph g) {
 		this.g = g;
+		this.mc = g.getMC();
 	}
 
 
@@ -70,6 +70,7 @@ public class Graph_Algo implements graph_algorithms, Serializable{
 			ex.printStackTrace();
 		}
 	}
+	
 
 	@Override
 	public boolean isConnected() {
@@ -86,47 +87,39 @@ public class Graph_Algo implements graph_algorithms, Serializable{
 		}
 		return true;
 	}
+	
+	
+	public void isReachableExtend(int src) {
+		if (this.g.getNode(src).getTag() == 1) {
+			return;
+		}
+		this.g.getNode(src).setTag(1);
+		Collection<edge_data> collection = this.g.getE(src);
+		for (edge_data i : collection) {
+			if(this.g.getNode(i.getDest()).getTag() == 1) {
+				continue;
+			}
+			isReachableExtend(i.getDest());
+		}
+	}
 
 
 	public boolean isReachable(int src,int dest) {
-		Collection<edge_data> collection = this.g.getE(src);
-		if(collection.isEmpty()) {
-			return false;
-		}
-		for(edge_data i : collection) {
-			int e = i.getDest();
-			if(e == dest) {
-				return true;
-			}
-			else {
-				return isReachable(e,dest);
-			}
-		}
+		resetNodeTags();
+		isReachableExtend(src);
+		if (this.g.getNode(dest).getTag() == 1)return true;
 		return false;
 	}
 
-	public void shortestPathDistExtend(int src) {
-		if (this.g.getNode(src).getTag() == 1)return;
-		Collection<edge_data> collection = this.g.getE(src);
-		for(edge_data i : collection) {
-			if(this.g.getNode(src).getWeight()+1 < this.g.getNode(i.getDest()).getWeight()) {
-				g.getNode(i.getDest()).setWeight(this.g.getNode(src).getWeight()+1);
-				
-			}
-			this.g.getNode(src).setTag(1);
-			shortestPathDistExtend(minWeightVal().getKey());
-		}
 
-	}
 	@Override
 	public double shortestPathDist(int src, int dest) {
-		if(!(isReachable(src, dest))) {
+		if (!(isReachable(src, dest))) {
 			return 0;
 		}
-		setAllWeight();
-		resetNodeTags();
-		this.g.getNode(src).setWeight(0);
-		shortestPathDistExtend(src);
+		if (this.mc != this.g.getMC()) {
+			shortestPathcalc(src, dest);
+		}
 		return this.g.getNode(dest).getWeight();
 	}
 
@@ -162,7 +155,36 @@ public class Graph_Algo implements graph_algorithms, Serializable{
 	}
 
 
-	public void shortestPathExtend(int src){
+	@Override
+	public List<node_data> shortestPath(int src, int dest) {
+		if (!(isReachable(src, dest))) {
+			return null;
+		}
+		if (this.mc != this.g.getMC()) {
+			shortestPathcalc(src, dest);
+		}
+		List<node_data> ans = new LinkedList<node_data>();
+		String path = this.g.getNode(dest).getInfo();
+		StringTokenizer tokenizer = new StringTokenizer(path);
+		while (tokenizer.hasMoreElements()) {
+			String nodeKey = tokenizer.nextToken(",");
+			ans.add(this.g.getNode(Integer.parseInt(nodeKey)));
+		}
+		ans.add(this.g.getNode(dest));
+		return ans;
+	}
+	
+
+	public void shortestPathcalc(int src, int dest) {
+		this.setAllWeight();
+		this.resetNodeTags();
+		this.g.getNode(src).setWeight(0);
+		this.g.getNode(src).setInfo("");
+		shortestPathcalcExtend(src);
+	}
+
+
+	public void shortestPathcalcExtend(int src){
 		if (this.g.getNode(src).getTag() == 1) {
 			return;
 		}
@@ -173,45 +195,18 @@ public class Graph_Algo implements graph_algorithms, Serializable{
 				continue;
 			}
 			double newWeight = this.g.getNode(src).getWeight() + i.getWeight();
+			String newpath = this.g.getNode(src).getInfo() + "," + g.getNode(src).getKey();
 			if (newWeight < this.g.getNode(i.getDest()).getWeight()) {
-				this.g.getNode(i.getDest()).setInfo("" + src);
+				this.g.getNode(i.getDest()).setInfo(newpath);
 				this.g.getNode(i.getDest()).setWeight(newWeight);
 			}
 		}
 		node_data temp = minWeightVal();
 		if (temp != null) {
-			shortestPathExtend(temp.getKey());
+			shortestPathcalcExtend(temp.getKey());
 		}
 	}
-
-
-	@Override
-	public List<node_data> shortestPath(int src, int dest) {
-		if (!(isReachable(src, dest))) {
-			return null;
-		}
-		this.setAllWeight();
-		this.resetNodeTags();
-		this.g.getNode(src).setWeight(0);
-		this.g.getNode(src).setTag(1);
-		shortestPathExtend(src);
-		Collection<edge_data> collection = this.g.getE(src);
-		node_data temp = this.g.getNode(dest);
-		LinkedList<Integer> upsideDown = new LinkedList<>();
-		while (true) {
-			if (temp.getKey() == src) {
-				break;
-			}
-			upsideDown.add(temp.getKey());
-			temp = this.g.getNode(Integer.parseInt(temp.getInfo()));
-		}
-		Object[] upsideDown1 =  upsideDown.toArray();
-		LinkedList<node_data> ans = new LinkedList<>();
-		for (int i = upsideDown1.length-1; i >= 0; i--) {
-			ans.add(this.g.getNode((int)upsideDown1[i]));
-		}
-		return ans;
-	}
+	
 
 	@Override
 	public List<node_data> TSP(List<Integer> targets) {
@@ -255,8 +250,6 @@ public class Graph_Algo implements graph_algorithms, Serializable{
 		}
 		return copy;
 	}
-
-
 
 
 }

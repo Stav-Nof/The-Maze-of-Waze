@@ -54,9 +54,14 @@ public class DGraph implements graph, Serializable{
 			this.vertices = temp.vertices;
 			this.verticeCounter = temp.verticeCounter;
 		}
-		this.vertices.put(n.getKey(),n);
-		this.edges.put(n.getKey(),new HashMap<Integer,edge_data>());
-		verticeCounter++;
+		if (this.vertices.get(n.getKey()) == null) {
+			this.vertices.put(n.getKey(),n);
+			this.edges.put(n.getKey(),new HashMap<Integer,edge_data>());
+			verticeCounter++;
+		}
+		else {
+			this.vertices.put(n.getKey(),n);
+		}
 		mc++;
 	}
 
