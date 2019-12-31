@@ -117,9 +117,6 @@ public class Graph_Algo implements graph_algorithms, Serializable{
 		if (!(isReachable(src, dest))) {
 			return 0;
 		}
-		if (this.mc != this.g.getMC()) {
-			shortestPathcalc(src, dest);
-		}
 		return this.g.getNode(dest).getWeight();
 	}
 
@@ -160,9 +157,7 @@ public class Graph_Algo implements graph_algorithms, Serializable{
 		if (!(isReachable(src, dest))) {
 			return null;
 		}
-		if (this.mc != this.g.getMC()) {
-			shortestPathcalc(src, dest);
-		}
+		shortestPathcalc(src, dest);
 		List<node_data> ans = new LinkedList<node_data>();
 		String path = this.g.getNode(dest).getInfo();
 		StringTokenizer tokenizer = new StringTokenizer(path);
@@ -210,7 +205,6 @@ public class Graph_Algo implements graph_algorithms, Serializable{
 
 	@Override
 	public List<node_data> TSP(List<Integer> targets) {
-		if (targets.isEmpty())return new LinkedList<node_data>();
 		if(!isConnected())return null;
 		List<node_data> shortes = null;
 		int firstNode = 0;
@@ -226,7 +220,8 @@ public class Graph_Algo implements graph_algorithms, Serializable{
 				}
 			}
 		}
-		targets.remove(firstNode);
+		if (targets.size() == 1)return new LinkedList<node_data>();
+		targets.remove(targets.indexOf(firstNode));
 		List<node_data> ans = new LinkedList<node_data>();
 		ans.addAll(shortes);
 		ans.addAll(TSP(targets));
