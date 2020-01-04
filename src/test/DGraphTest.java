@@ -131,9 +131,9 @@ class DGraphTest {
 
 			assertEquals(g.nodeSize(), 2);
 
-			g.removeNode(n.getKey()); //remove one vertices
+			g.removeNode(n.getKey()); //remove one vertex
 
-			 assertEquals(g.nodeSize(), 1);
+			assertEquals(g.nodeSize(), 1);
 	}*/
 
 	@Test
