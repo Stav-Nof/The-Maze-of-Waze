@@ -16,7 +16,11 @@ public class DGraph implements graph, Serializable{
 	private int edgesCounter;
 	int mc;
 
-
+/*
+ * Default Constructor of a DGraph.
+ * A default graph of type DGraph contains a Hashmap of vertices and another Hashmap of edges which contains key numbers and a HashMap of edges.
+ * Counts the number of vertices, edges of the graph and the numbers of changes that were made on the graph.
+ */
 	public DGraph() {
 		vertices = new HashMap <Integer,node_data>();
 		edges = new HashMap <Integer,HashMap<Integer,edge_data>>();
@@ -25,7 +29,9 @@ public class DGraph implements graph, Serializable{
 		mc=0;
 	}
 
-
+/*
+ * Returns the node data by the key node.
+ */
 	@Override
 	public node_data getNode(int key) {
 		if(vertices.containsKey(key)){
@@ -35,6 +41,11 @@ public class DGraph implements graph, Serializable{
 	}
 
 
+
+/*
+ * returns the data of the specified edge by using its source and its destination.
+ * 
+ */
 	@Override
 	public edge_data getEdge(int src, int dest) {
 		if (edges.containsKey(src) && edges.get(src).containsKey(dest)) {
@@ -46,6 +57,10 @@ public class DGraph implements graph, Serializable{
 	}
 
 
+/*
+ * Adds a node to the graph with a given node_data.
+ * 
+ */
 	@Override
 	public void addNode(node_data n) throws RuntimeException {
 		if (this.vertices == null) {
@@ -66,6 +81,9 @@ public class DGraph implements graph, Serializable{
 	}
 
 
+/*
+ * Creates an edge and connect between two given node source and node dest. Adds a weight value to the edge.
+ */
 	@Override
 	public void connect(int src, int dest, double w) {
 		node_data a = getNode(src);
@@ -81,6 +99,10 @@ public class DGraph implements graph, Serializable{
 	}
 
 
+
+/*
+ * Returns a shallow pointer to a collection of all the vertices in this graph.
+ */
 	@Override
 	public Collection<node_data> getV() {
 		Collection<node_data> ans =  new LinkedList<node_data>();
@@ -89,6 +111,10 @@ public class DGraph implements graph, Serializable{
 	}
 
 
+
+/*
+ *  Returns a shallow pointer to a collection of all the edges of this graph.
+ */
 	@Override
 	public Collection<edge_data> getE(int node_id) {
 		Collection<edge_data> ans = new LinkedList<edge_data>();
@@ -97,6 +123,9 @@ public class DGraph implements graph, Serializable{
 	}
 
 
+/*
+ * removes the Node by using its key from this graph and removes all the edges that starts and end by this node.
+ */
 	@Override
 	public node_data removeNode(int key) {
 		if (this.vertices.containsKey(key)) {
@@ -109,6 +138,9 @@ public class DGraph implements graph, Serializable{
 		return null;
 	}
 
+/*
+ * Removes the edge that connect between a source node and destination node from this graph.
+ */
 
 	@Override
 	public edge_data removeEdge(int src, int dest) {
@@ -124,16 +156,25 @@ public class DGraph implements graph, Serializable{
 	}
 
 
+/*
+ * Returns the number of Vertices nodes in this graph.
+ */
 	@Override
 	public int nodeSize() {
 		return this.verticeCounter;
 	}
 
+/*
+ * Returns the number of edges in this graph.
+ */
 	@Override
 	public int edgeSize() {
 		return this.edgesCounter;
 	}
 
+/*
+ * returns the numbers of changes that were made on this graph.
+ */
 	@Override
 	public int getMC() {
 		return mc;

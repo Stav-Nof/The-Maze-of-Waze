@@ -29,20 +29,26 @@ public class Graph_Algo implements graph_algorithms, Serializable{
 	public graph g;
 	public int mc;
 
-
+/*
+ * Constructor for Graph_Algo that receives a graph of type "graph".
+ */
 	public Graph_Algo(graph _graph) {
 		this.g = _graph;
 		this.mc = g.getMC();
 	}
 
-
+/*
+ * Default Constructor for Graph_Algo.
+ */
 	public Graph_Algo() {
 		this.g = null;
 		this.mc = 0;
 	}
 
 
-
+/*
+ * Initializes a graph (receives a graph of type graph).
+ */
 	@Override
 	public void init(graph g) {
 		this.g = g;
@@ -51,6 +57,11 @@ public class Graph_Algo implements graph_algorithms, Serializable{
 
 
 
+/*
+ * Initializes a graph from a file.
+ * The purpose is to read a file from the computer. The function should read a specific given file (a graph file) and 
+ * from it, initializes a graph.
+ */
 	@Override
 	public void init(String file_name) {
 		Graph_Algo temp = null; 
@@ -73,6 +84,9 @@ public class Graph_Algo implements graph_algorithms, Serializable{
 	}
 
 
+/*
+ * Saves a file on the computer with a given file name.
+ */
 	@Override
 	public void save(String file_name) {
 		try{    
@@ -88,6 +102,10 @@ public class Graph_Algo implements graph_algorithms, Serializable{
 	}
 
 
+/*
+ * This methods check if all the nodes in the graph are connected to each other.
+ * That is to say that from every Node , we can find a valid path to any other node in the graph.
+ */
 	@Override
 	public boolean isConnected() {
 		Collection<node_data> collection = this.g.getV();
@@ -104,7 +122,12 @@ public class Graph_Algo implements graph_algorithms, Serializable{
 		return true;
 	}
 
-
+/*
+ * Extends the isReachable method below. 
+ * Traverse the graph and more formally , gets every edges of the graph and by recursion sets the tag of the actual node to be 1, and 
+ * that way it allows to know wether or not if there is a way to get to the dest node.
+ * More details in the function below.
+ */
 	public void isReachableExtend(int src) {
 		if (this.g.getNode(src).getTag() == 1) {
 			return;
@@ -119,7 +142,13 @@ public class Graph_Algo implements graph_algorithms, Serializable{
 		}
 	}
 
-
+/*
+ * Helping function which aims to tell if from a source node, we can reach a given destination node in the graph.
+ * Uses the isReachableExtend function above.
+ * This function resets each node's tag in the graph to 0.
+ * Finally if the value of the tag of the dest node is 1, it means that we reached him and that he is reachable.
+ * 
+ */
 	public boolean isReachable(int src,int dest) {
 		resetNodeTags();
 		isReachableExtend(src);
@@ -127,6 +156,11 @@ public class Graph_Algo implements graph_algorithms, Serializable{
 		return false;
 	}
 
+/*
+ * Returns the shortest path in terms of edge weight in order to go from a source node to a dest node in the graph.
+ * By using a helping function, the function calculates all the possible paths and their costs (additioning the values of each edge to get to 
+ * a specific dest node). return the lowest cost in order to get to the dest node.
+ */
 
 	@Override
 	public double shortestPathDist(int src, int dest) {
@@ -138,6 +172,9 @@ public class Graph_Algo implements graph_algorithms, Serializable{
 	}
 
 
+/*
+ * sets all nodes weight to positive infinity.
+ */
 	public void setAllWeight() {
 		Collection<node_data> collection = this.g.getV();
 		for (node_data i : collection) {
@@ -146,6 +183,9 @@ public class Graph_Algo implements graph_algorithms, Serializable{
 	}
 
 
+/*
+ * The all nodes tags in the graph to 0.
+ */
 	public void resetNodeTags() {
 		Collection<node_data> collection = this.g.getV();
 		for (node_data i : collection) {
@@ -153,6 +193,10 @@ public class Graph_Algo implements graph_algorithms, Serializable{
 		}
 	}
 
+
+/*
+ * Returns the node_data with the minimum weight value weight. 
+ */
 
 	public node_data minWeightVal() {
 		Collection<node_data> collection = this.g.getV();
@@ -168,6 +212,10 @@ public class Graph_Algo implements graph_algorithms, Serializable{
 		return ans;
 	}
 
+	/*
+	 * return the shortestPath between two node as an ordered list of nodes, that is to say, the exact path (all the node we have to 
+	 * visit ) to get from source node to dest node.
+	 */
 
 	@Override
 	public List<node_data> shortestPath(int src, int dest) {
@@ -187,6 +235,10 @@ public class Graph_Algo implements graph_algorithms, Serializable{
 	}
 
 
+/*
+ * Traverse the graph and sets each node's weight to positive infinity and each node's tag to 0.
+ * Uses the helping function "shortestPathcalcExtend" below.
+ */
 	public void shortestPathcalc(int src, int dest) {
 		this.setAllWeight();
 		this.resetNodeTags();
@@ -195,7 +247,13 @@ public class Graph_Algo implements graph_algorithms, Serializable{
 		shortestPathcalcExtend(src);
 	}
 
-
+/*
+ * Recursive method in order to calculate the shortest Path to get from src node to dest node.
+ * To do so, the function traverses the graph and saves into the info the "route" to get to the dest node.
+ * Recursively doing this on every source node gets use to find the shortest path in the graph.
+ * This function is used in the function "shortestPath" above.
+ * 
+ */
 	public void shortestPathcalcExtend(int src){
 		if (this.g.getNode(src).getTag() == 1) {
 			return;
@@ -219,7 +277,12 @@ public class Graph_Algo implements graph_algorithms, Serializable{
 		}
 	}
 
-
+/*
+ * This methods receives a list of Nodes. The function computes all the possible paths and return the shortest one.(Returns a 
+ * list of keys). 
+ * In the case where Nodes in the list have no direct path from one to another, the function will calculate how to get to the specific 
+ * node, and add the specific key in order to get to the precise Node, which means that in some cases the output can be bigger than the input.
+ */
 	@Override
 	public List<node_data> TSP(List<Integer> targets) {
 		if(!isConnected())return null;
@@ -263,6 +326,9 @@ public class Graph_Algo implements graph_algorithms, Serializable{
 		return ans;
 	}
 
+/*
+ * This method makes a deep copy of this graph.
+ */
 	@Override
 	public graph copy() {
 		DGraph copy = new DGraph();

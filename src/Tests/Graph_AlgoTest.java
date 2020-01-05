@@ -53,41 +53,43 @@ public class Graph_AlgoTest {
 		assertFalse(g.isConnected());
 	}
 
-//	@Test
-//	public final void testIsReachable() {
-//
-//		Graph_Algo g = new Graph_Algo();
-//		g.init(new DGraph());
-//
-//		Node n = new Node(2,250,250);
-//		Node n1 = new Node(4,25,20);
-//		Node n2 = new Node(20,245,40);
-//		Node n3 = new Node(6,60,75);
-//
-//		g.g.addNode(n);
-//		g.g.addNode(n1);
-//		g.g.addNode(n2);
-//		g.g.addNode(n3);
-//
-//		g.g.connect(n.getKey(), n1.getKey(), 5);
-//		g.g.connect(n.getKey(), n2.getKey(), 5);
-//		g.g.connect(n2.getKey(), n3.getKey(), 5);
-//		g.g.connect(n3.getKey(), n1.getKey(), 5);
-//		
-//		assertTrue(g.isReachable(n.getKey(), n3.getKey()));
-//		
-//	}
+	@Test
+	public final void testIsReachable() {
+
+		Graph_Algo g = new Graph_Algo();
+		g.init(new DGraph());
+
+		Node n = new Node(2,250,250);
+		Node n1 = new Node(4,25,20);
+		Node n2 = new Node(20,245,40);
+		Node n3 = new Node(6,60,75);
+
+		g.g.addNode(n);
+		g.g.addNode(n1);
+		g.g.addNode(n2);
+		g.g.addNode(n3);
+
+		g.g.connect(n.getKey(), n1.getKey(), 5);
+		g.g.connect(n.getKey(), n2.getKey(), 5);
+		g.g.connect(n2.getKey(), n3.getKey(), 5);
+		g.g.connect(n3.getKey(), n1.getKey(), 5);
+		
+		assertTrue(g.isReachable(n.getKey(), n3.getKey()));
+		
+	}
 	//
 	//	@Test
 	//	public final void testResetNodeTags() {
 	//		fail("Not yet implemented"); // TODO
 	//	}
 	//
-	//	@Test
-	//	public final void testShortestPathDist() {
-	//		fail("Not yet implemented"); // TODO
-	//	}
-	//
+		@Test
+		public final void testShortestPathDist() {
+		
+			
+			
+		}
+	
 	//	@Test
 	//	public final void testShortestPath() {
 	//		fail("Not yet implemented"); // TODO
