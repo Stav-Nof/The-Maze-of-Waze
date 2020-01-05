@@ -91,7 +91,7 @@ public class DGraph implements graph, Serializable{
 
 	@Override
 	public Collection<edge_data> getE(int node_id) {
-		Collection<edge_data> ans =  new LinkedList<edge_data>();
+		Collection<edge_data> ans = new LinkedList<edge_data>();
 		ans.addAll(this.edges.get(node_id).values());
 		return ans;
 	}

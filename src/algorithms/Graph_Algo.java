@@ -30,6 +30,12 @@ public class Graph_Algo implements graph_algorithms, Serializable{
 	public int mc;
 
 
+	public Graph_Algo(graph _graph) {
+		this.g = g;
+		this.mc = g.getMC();
+	}
+
+
 	@Override
 	public void init(graph g) {
 		this.g = g;
@@ -70,7 +76,7 @@ public class Graph_Algo implements graph_algorithms, Serializable{
 			ex.printStackTrace();
 		}
 	}
-	
+
 
 	@Override
 	public boolean isConnected() {
@@ -87,8 +93,8 @@ public class Graph_Algo implements graph_algorithms, Serializable{
 		}
 		return true;
 	}
-	
-	
+
+
 	public void isReachableExtend(int src) {
 		if (this.g.getNode(src).getTag() == 1) {
 			return;
@@ -169,7 +175,7 @@ public class Graph_Algo implements graph_algorithms, Serializable{
 		ans.add(this.g.getNode(dest));
 		return ans;
 	}
-	
+
 
 	public void shortestPathcalc(int src, int dest) {
 		this.setAllWeight();
@@ -202,20 +208,19 @@ public class Graph_Algo implements graph_algorithms, Serializable{
 			shortestPathcalcExtend(temp.getKey());
 		}
 	}
-	
+
 
 	@Override
 	public List<node_data> TSP(List<Integer> targets) {
-		if (targets.size() <= 1) {
-			List<node_data> ans = new LinkedList<node_data>();
-			for (Integer i : targets) {
-				ans.add(this.g.getNode(i));
-				return ans;
-			}
-		}
 		if(!isConnected())return null;
+		if (targets.isEmpty())return null;
+		if (targets.size() == 1) {
+			List<node_data> ans = new LinkedList<node_data>();
+			ans.add(this.g.getNode(targets.get(0)));
+			return ans;
+		}
+		if (targets.size() == 1)return this.shortestPath(targets.get(0), targets.get(1));
 		List<node_data> shortes = null;
-		int firstNode = 0;
 		double weight = Double.POSITIVE_INFINITY;
 		for (Integer i : targets) {
 			for (Integer j : targets) {
@@ -224,19 +229,27 @@ public class Graph_Algo implements graph_algorithms, Serializable{
 				if (weight > temp) {
 					weight = temp;
 					shortes = shortestPath(i, j);
-					firstNode = i;
 				}
 			}
 		}
-		for (node_data i : shortes) {
-			targets.remove(targets.indexOf(i.getKey()));
-		}
-		
 		List<node_data> ans = new LinkedList<node_data>();
 		ans.addAll(shortes);
+		for (node_data i : shortes) {
+			if(targets.size() <= 1) {
+				
+				return ans;
+			}
+			if (targets.contains(i.getKey())) {
+				targets.remove(targets.indexOf(i.getKey()));
+			}
+		}
 		ans.addAll(TSP(targets));
 		return ans;
 	}
+	
+	
+//	public List<node_data> TSP(int src, List<Integer> targets) {
+//	}
 
 
 	@Override
