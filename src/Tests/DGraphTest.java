@@ -1,11 +1,8 @@
 package Tests;
 
 import static org.junit.jupiter.api.Assertions.*;
-
 import org.junit.jupiter.api.Test;
-
 import dataStructure.DGraph;
-import dataStructure.Edge;
 import dataStructure.Node;
 import dataStructure.edge_data;
 import dataStructure.node_data;

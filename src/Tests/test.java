@@ -32,7 +32,7 @@ class Ex2Test {
 	static void setUpBeforeClass() throws Exception {
 		_graph = tinyGraph();
 	}
-	
+
 	@BeforeEach
 	void setUp() throws Exception {
 	}
@@ -50,15 +50,15 @@ class Ex2Test {
 		boolean ans = drawGraph(_graph);
 		assertTrue(ans);
 	}
-	
+
 	private static graph tinyGraph() {
 		graph ans = new DGraph();
 		return ans;
 	}
 	boolean drawGraph(graph g) { 
-		// YOUR GUI graph draw 
+		Window temp = new Window(g); 
 		return true;
-		
+
 	}
 
 }

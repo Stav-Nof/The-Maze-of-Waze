@@ -1,44 +1,40 @@
 package gui;
 
 import java.awt.BasicStroke;
-import java.awt.Checkbox;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.GridLayout;
 import java.awt.Menu;
 import java.awt.MenuBar;
 import java.awt.MenuItem;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
-import javax.swing.ButtonGroup;
-import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.PopupFactory;
 import algorithms.Graph_Algo;
 import dataStructure.Node;
 import dataStructure.edge_data;
+import dataStructure.graph;
 import dataStructure.node_data;
 import utils.Point3D;
 
-public class Window extends JFrame implements ActionListener ,MouseListener {
+public class Window extends JFrame implements ActionListener {
 	Graph_Algo ga;
 
 
 	public Window(Graph_Algo g) {
 		this.ga = g;
+		firstWindow();
+	}
+
+
+	public Window(graph g) { 
+		this.ga = new Graph_Algo (g);
 		firstWindow();
 	}
 
@@ -139,8 +135,8 @@ public class Window extends JFrame implements ActionListener ,MouseListener {
 		}
 	}
 
-	
-	
+
+
 
 
 	@Override
@@ -393,40 +389,5 @@ public class Window extends JFrame implements ActionListener ,MouseListener {
 			repaint();
 		}
 
-	}
-
-
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		repaint();
-		
-	}
-
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 }
