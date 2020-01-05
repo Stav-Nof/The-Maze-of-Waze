@@ -176,11 +176,6 @@ public class Window extends JFrame implements ActionListener {
 
 		if (action.equals("shortest Path")) {
 			final JFrame shortestPathDist = new JFrame();
-			if (!this.ga.isConnected()) {
-				JOptionPane.showMessageDialog(null, "the graph not conected.\nyou cent use this option");
-				return;
-
-			}
 			String sStart = JOptionPane.showInputDialog(shortestPathDist,"enter a start vertices key", null);
 			int start = 0;
 			if(sStart == null) {
@@ -219,6 +214,10 @@ public class Window extends JFrame implements ActionListener {
 				JOptionPane.showMessageDialog(null, "the start and the end key is equals");
 				return;
 			}
+			if (!this.ga.isReachable(start, end)) {
+				JOptionPane.showMessageDialog(null, "the source and destination are not connected");
+				return;
+			}
 			List<node_data> ans = this.ga.shortestPath(start, end);
 			String sAns = "";
 			for (node_data i : ans) {
@@ -230,11 +229,6 @@ public class Window extends JFrame implements ActionListener {
 		}
 		if (action.equals("shortest Path distance")) {
 			final JFrame shortestPathDist = new JFrame();
-			if (!this.ga.isConnected()) {
-				JOptionPane.showMessageDialog(null, "the graph not conected.\nyou cent use this option");
-				return;
-
-			}
 			String sStart = JOptionPane.showInputDialog(shortestPathDist,"enter a start vertices key", null);
 			int start = 0;
 			if(sStart == null) {

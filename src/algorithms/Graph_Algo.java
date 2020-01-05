@@ -234,7 +234,9 @@ public class Graph_Algo implements graph_algorithms, Serializable{
 		List<node_data> toAdd = shortestPath(targets.get(0), destId);
 		ans.addAll(toAdd);
 		for (node_data i : toAdd) {
+			if (targets.contains(i.getKey())) {
 			targets.remove(targets.indexOf(i.getKey()));
+			}
 		}
 		ans.addAll(TSP(destId, targets));
 		return ans;
@@ -253,12 +255,13 @@ public class Graph_Algo implements graph_algorithms, Serializable{
 		List<node_data> toAdd = shortestPath(targets.get(0), destId);
 		ans.addAll(toAdd);
 		for (node_data i : toAdd) {
+			if (targets.contains(i.getKey())) {
 			targets.remove(targets.indexOf(i.getKey()));
+			}
 		}
 		ans.addAll(TSP(destId, targets));
 		return ans;
 	}
-
 
 	@Override
 	public graph copy() {
