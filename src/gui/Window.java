@@ -61,11 +61,12 @@ public class Window extends JFrame implements ActionListener {
 		this.setFont (myFont);
 
 		MenuBar menuBar = new MenuBar();
-
+		Menu Refresh = new Menu("Refresh");
 		Menu graph = new Menu("graph");
 		Menu algorithms = new Menu("algorithms");
 		menuBar.add(algorithms);
 		menuBar.add(graph);
+		menuBar.add(Refresh);
 		this.setMenuBar(menuBar);
 		//algorithms menu
 		MenuItem isConnected = new MenuItem("is Connected");
