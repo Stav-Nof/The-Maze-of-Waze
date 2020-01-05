@@ -31,11 +31,11 @@ public class Graph_Algo implements graph_algorithms, Serializable{
 
 
 	public Graph_Algo(graph _graph) {
-		this.g = g;
+		this.g = _graph;
 		this.mc = g.getMC();
 	}
-	
-	
+
+
 	public Graph_Algo() {
 		this.g = null;
 		this.mc = 0;
@@ -48,7 +48,7 @@ public class Graph_Algo implements graph_algorithms, Serializable{
 		this.g = g;
 		this.mc = g.getMC();
 	}
-	
+
 
 
 	@Override
@@ -231,14 +231,18 @@ public class Graph_Algo implements graph_algorithms, Serializable{
 		}
 		List<node_data> ans = new LinkedList<node_data>();
 		int destId = targets.get(1);
-		ans.addAll(shortestPath(targets.get(0), destId));
+		List<node_data> toAdd = shortestPath(targets.get(0), destId);
+		ans.addAll(toAdd);
+		for (node_data i : toAdd) {
+			targets.remove(targets.indexOf(i.getKey()));
+		}
 		ans.addAll(TSP(destId, targets));
 		return ans;
 	}
-	
-	
+
+
 	public List<node_data> TSP(int src, List<Integer> targets){
-		if (targets.isEmpty())return null;
+		if (targets.isEmpty())return new LinkedList<node_data>();
 		if (targets.size() == 1) {
 			List<node_data> ans = new LinkedList<node_data>();
 			ans.add(this.g.getNode(targets.get(0)));
@@ -246,7 +250,11 @@ public class Graph_Algo implements graph_algorithms, Serializable{
 		}
 		List<node_data> ans = new LinkedList<node_data>();
 		int destId = targets.get(1);
-		ans.addAll(shortestPath(targets.get(0), destId));
+		List<node_data> toAdd = shortestPath(targets.get(0), destId);
+		ans.addAll(toAdd);
+		for (node_data i : toAdd) {
+			targets.remove(targets.indexOf(i.getKey()));
+		}
 		ans.addAll(TSP(destId, targets));
 		return ans;
 	}
