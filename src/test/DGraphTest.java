@@ -120,7 +120,7 @@ class DGraphTest {
 		assertTrue(g.getEdge(n.getKey(), n1.getKey()) ==null);
 	}
 
-	/* @Test
+	@Test
 	final void testNodeSize() {
 		 DGraph g = new DGraph();
 			node_data n = new Node(2,250,250);
@@ -134,7 +134,7 @@ class DGraphTest {
 			g.removeNode(n.getKey()); //remove one vertex
 
 			assertEquals(g.nodeSize(), 1);
-	}*/
+	}
 
 	@Test
 	final void testEdgeSize() {
@@ -157,9 +157,19 @@ class DGraphTest {
 		assertEquals(g.edgeSize(), 1);
 	}
 
-	/* @Test
+	@Test
 	final void testGetMC() {
-		fail("Not yet implemented"); // TODO
-	}*/
+		DGraph g = new DGraph();
+		node_data n = new Node(2,250,250);
+		g.addNode(n);
+		
+		assertEquals(g.getMC(), 1);
+		
+		g.removeNode(n.getKey());
+		
+		assertEquals(g.getMC(), 2);
+		
+		
+	}
 
 }
