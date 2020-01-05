@@ -101,9 +101,8 @@ public class DGraph implements graph, Serializable{
 	public node_data removeNode(int key) {
 		if (this.vertices.containsKey(key)) {
 			node_data toReturn = this.vertices.remove(key);
-			int num = this.edges.get(key).size();
 			this.edges.remove(key);
-			this.verticeCounter = this.verticeCounter - num;
+			this.verticeCounter--;
 			mc++;
 			return toReturn;
 		}
