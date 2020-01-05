@@ -35,11 +35,6 @@ import utils.Point3D;
 public class Window extends JFrame implements ActionListener {
 	Graph_Algo ga;
 
-	public Window() {
-		this.ga = new Graph_Algo();
-		firstWindow();
-	}
-
 
 	public Window(Graph_Algo g) {
 		this.ga = g;
