@@ -12,11 +12,12 @@ import java.awt.MenuBar;
 import java.awt.MenuItem;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
-
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -32,7 +33,7 @@ import dataStructure.edge_data;
 import dataStructure.node_data;
 import utils.Point3D;
 
-public class Window extends JFrame implements ActionListener {
+public class Window extends JFrame implements ActionListener ,MouseListener {
 	Graph_Algo ga;
 
 
@@ -138,7 +139,8 @@ public class Window extends JFrame implements ActionListener {
 		}
 	}
 
-
+	
+	
 
 
 	@Override
@@ -391,5 +393,40 @@ public class Window extends JFrame implements ActionListener {
 			repaint();
 		}
 
+	}
+
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		repaint();
+		
+	}
+
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 }
