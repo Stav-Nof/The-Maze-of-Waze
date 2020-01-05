@@ -7,14 +7,10 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.List;
-
 import org.junit.jupiter.api.Test;
-
 import algorithms.Graph_Algo;
 import dataStructure.DGraph;
 import dataStructure.Node;
-import dataStructure.edge_data;
 import dataStructure.node_data;
 
 class TestGraph_Algo {
