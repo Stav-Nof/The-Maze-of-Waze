@@ -84,15 +84,15 @@ public class Window extends JFrame implements ActionListener {
 		loadGraph.addActionListener(this);
 		MenuItem saveGraph = new MenuItem("save graph");
 		saveGraph.addActionListener(this);
-		MenuItem addVertices = new MenuItem("add vertices");
-		addVertices.addActionListener(this);
+		MenuItem addvertex = new MenuItem("add vertex");
+		addvertex.addActionListener(this);
 		MenuItem connect = new MenuItem("connect");
 		connect.addActionListener(this);
 		MenuItem Refresh = new MenuItem("Refresh");
 		Refresh.addActionListener(this);
 		graph.add(loadGraph);
 		graph.add(saveGraph);
-		graph.add(addVertices);
+		graph.add(addvertex);
 		graph.add(connect);
 		graph.add(Refresh);
 		this.setVisible(true);
@@ -145,7 +145,7 @@ public class Window extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		String action = e.getActionCommand();
 		if(action.equals("Refresh")) {
-			System.out.println("yarin");
+			repaint();
 		}
 		if (action.equals("TSP")) {
 			if (!this.ga.isConnected()) {
@@ -181,7 +181,7 @@ public class Window extends JFrame implements ActionListener {
 
 		if (action.equals("shortest Path")) {
 			final JFrame shortestPathDist = new JFrame();
-			String sStart = JOptionPane.showInputDialog(shortestPathDist,"enter a start vertices key", null);
+			String sStart = JOptionPane.showInputDialog(shortestPathDist,"enter a start vertex key", null);
 			int start = 0;
 			if(sStart == null) {
 				JOptionPane.showMessageDialog(null, "Action canceled");
@@ -198,7 +198,7 @@ public class Window extends JFrame implements ActionListener {
 				JOptionPane.showMessageDialog(null, "the key you enterd does not exist\nthe Action canceled");
 				return;
 			}
-			String sEnd = JOptionPane.showInputDialog(shortestPathDist,"enter a end vertices key", null);
+			String sEnd = JOptionPane.showInputDialog(shortestPathDist,"enter a end vertex key", null);
 			int end = 0;
 			if(sEnd == null) {
 				JOptionPane.showMessageDialog(null, "Action canceled");
@@ -234,7 +234,7 @@ public class Window extends JFrame implements ActionListener {
 		}
 		if (action.equals("shortest Path distance")) {
 			final JFrame shortestPathDist = new JFrame();
-			String sStart = JOptionPane.showInputDialog(shortestPathDist,"enter a start vertices key", null);
+			String sStart = JOptionPane.showInputDialog(shortestPathDist,"enter a start vertex key", null);
 			int start = 0;
 			if(sStart == null) {
 				JOptionPane.showMessageDialog(null, "Action canceled");
@@ -251,7 +251,7 @@ public class Window extends JFrame implements ActionListener {
 				JOptionPane.showMessageDialog(null, "the key you enterd does not exist\nthe Action canceled");
 				return;
 			}
-			String sEnd = JOptionPane.showInputDialog(shortestPathDist,"enter a end vertices key", null);
+			String sEnd = JOptionPane.showInputDialog(shortestPathDist,"enter a end vertex key", null);
 			int end = 0;
 			if(sEnd == null) {
 				JOptionPane.showMessageDialog(null, "Action canceled");
@@ -310,7 +310,7 @@ public class Window extends JFrame implements ActionListener {
 			this.ga.save(file_name);
 			repaint();
 		}
-		if(action.equals("add vertices")){
+		if(action.equals("add vertex")){
 			final JFrame toAdd = new JFrame();
 			String sX = JOptionPane.showInputDialog(toAdd,"enter an x value", null);
 			if(sX == null) {
@@ -343,7 +343,7 @@ public class Window extends JFrame implements ActionListener {
 			int from = 0;
 			int to = 0;
 			double weight = 0;
-			String sFrom = JOptionPane.showInputDialog(connect,"enter a vertices key to conect from", null);
+			String sFrom = JOptionPane.showInputDialog(connect,"enter a vertex key to conect from", null);
 			if(sFrom == null) {
 				JOptionPane.showMessageDialog(null, "Action canceled");
 				return;
@@ -352,14 +352,14 @@ public class Window extends JFrame implements ActionListener {
 				from = Integer.parseInt(sFrom);
 			}
 			catch (NumberFormatException er) {
-				JOptionPane.showMessageDialog(null, "you entered a char instead of a number!\nthe vertices did not conect");
+				JOptionPane.showMessageDialog(null, "you entered a char instead of a number!\nthe vertex did not conect");
 				return;
 			}
 			if (this.ga.g.getNode(from) == null) {
-				JOptionPane.showMessageDialog(null, "the key you entered doesnt exist\nthe vertices did not conect");
+				JOptionPane.showMessageDialog(null, "the key you entered doesnt exist\nthe vertex did not conect");
 				return;
 			}
-			String sto = JOptionPane.showInputDialog(connect,"enter a vertices key to conect to", null);
+			String sto = JOptionPane.showInputDialog(connect,"enter a vertex key to conect to", null);
 			if(sto == null) {
 				JOptionPane.showMessageDialog(null, "Action canceled");
 				return;
@@ -368,11 +368,11 @@ public class Window extends JFrame implements ActionListener {
 				to = Integer.parseInt(sto);
 			}
 			catch (NumberFormatException er) {
-				JOptionPane.showMessageDialog(null, "you entered a char instead of a number!\nthe vertices did not conect");
+				JOptionPane.showMessageDialog(null, "you entered a char instead of a number!\nthe vertex did not conect");
 				return;
 			}
 			if (this.ga.g.getNode(to) == null) {
-				JOptionPane.showMessageDialog(null, "the key you entered doesnt exist\nthe vertices did not conect");
+				JOptionPane.showMessageDialog(null, "the key you entered doesnt exist\nthe vertex did not conect");
 				return;
 			}
 			String sweight = JOptionPane.showInputDialog("enter a edge weight");
@@ -384,7 +384,7 @@ public class Window extends JFrame implements ActionListener {
 				weight = Double.parseDouble(sweight);
 			}
 			catch (NumberFormatException er) {
-				JOptionPane.showMessageDialog(null, "you entered a char instead of a number!\nthe vertices did not conect");
+				JOptionPane.showMessageDialog(null, "you entered a char instead of a number!\nthe vertex did not conect");
 				return;
 			}
 			this.ga.g.connect(from, to, weight);
