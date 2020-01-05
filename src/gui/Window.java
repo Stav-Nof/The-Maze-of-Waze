@@ -61,12 +61,10 @@ public class Window extends JFrame implements ActionListener {
 		this.setFont (myFont);
 
 		MenuBar menuBar = new MenuBar();
-		Menu Refresh = new Menu("Refresh");
 		Menu graph = new Menu("graph");
 		Menu algorithms = new Menu("algorithms");
 		menuBar.add(algorithms);
 		menuBar.add(graph);
-		menuBar.add(Refresh);
 		this.setMenuBar(menuBar);
 		//algorithms menu
 		MenuItem isConnected = new MenuItem("is Connected");
@@ -90,10 +88,13 @@ public class Window extends JFrame implements ActionListener {
 		addVertices.addActionListener(this);
 		MenuItem connect = new MenuItem("connect");
 		connect.addActionListener(this);
+		MenuItem Refresh = new MenuItem("Refresh");
+		Refresh.addActionListener(this);
 		graph.add(loadGraph);
 		graph.add(saveGraph);
 		graph.add(addVertices);
 		graph.add(connect);
+		graph.add(Refresh);
 		this.setVisible(true);
 
 	}
@@ -143,6 +144,9 @@ public class Window extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String action = e.getActionCommand();
+		if(action.equals("Refresh")) {
+			System.out.println("yarin");
+		}
 		if (action.equals("TSP")) {
 			if (!this.ga.isConnected()) {
 				JOptionPane.showMessageDialog(null, "the graph not conected.\nyou cent use this option");
